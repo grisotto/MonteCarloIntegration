@@ -1,21 +1,30 @@
 var indexSectionsWithContent =
 {
-  0: "cgms",
-  1: "m",
-  2: "cgms"
+  0: "cfghmprs",
+  1: "ghm",
+  2: "ghmr",
+  3: "cfghmps",
+  4: "hm",
+  5: "m"
 };
 
 var indexSectionNames =
 {
   0: "all",
-  1: "files",
-  2: "functions"
+  1: "classes",
+  2: "files",
+  3: "functions",
+  4: "variables",
+  5: "pages"
 };
 
 var indexSectionLabels =
 {
   0: "All",
-  1: "Files",
-  2: "Functions"
+  1: "Classes",
+  2: "Files",
+  3: "Functions",
+  4: "Variables",
+  5: "Pages"
 };
 

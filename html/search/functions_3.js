@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['seedrandom',['SeedRandom',['../Monte__carlo_8cpp.html#a68201a10874ad6e71244ac2ae75ee37b',1,'Monte_carlo.cpp']]]
+  ['histograma',['Histograma',['../classHistograma.html#aa124257d1ce400edc13bfa2bfa81c76b',1,'Histograma']]]
 ];
