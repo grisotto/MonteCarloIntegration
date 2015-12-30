@@ -64,6 +64,7 @@ double funcao(double x) {
 	return y;
 }
 
+
 int main() {
 //	map<int, int> hist;
 
@@ -87,7 +88,7 @@ int main() {
 	a = 0.0;
 	b = 10.0;
 	n = 2;
-	ntimes = 20;
+	ntimes = 6;
  /** Usando método MonteCarloCrude
   *
   */

@@ -6,19 +6,39 @@
  */
 
 #include "Histograma.h"
-
 #include <map>
+#include <iostream>
+#include <string>
 
-Histograma::getHist() {
+Histograma::Histograma(void){
+	std::cout << "Criado o histagrama as" << std::endl;
+}
+
+void Histograma::setHist(std::map<double, int>& hist){
 
 
+	this->hist = hist;
 
 }
 
-Histograma::setHist(){
+const std::map<double, int>& Histograma::getHist() const{
 
-
+	for (auto p : hist) {
+	    std::cout << p.first << " : " << std::string(p.second/10, '*') << '\n';
+			       }
+	return hist;
 }
+
+void printing(std::pair<char,int> the_pair){
+	std::cout << the_pair.first << " " << the_pair.second << std::endl;
+}
+
+//
+//	++hist[dist(mt)];
+//
+//	 for (auto p : hist) {
+//		           cout << p.first << " : " << string(p.second/100, '*') << '\n';
+//		       }
 
 
 

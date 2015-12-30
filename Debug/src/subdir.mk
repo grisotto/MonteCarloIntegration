@@ -5,18 +5,21 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../src/GenerateNumbers.cpp \
+../src/Histograma.cpp \
 ../src/MonteCarloCrude.cpp \
-../src/Monte_carlo.cpp 
+../src/MonteCarloIntegration.cpp 
 
 OBJS += \
 ./src/GenerateNumbers.o \
+./src/Histograma.o \
 ./src/MonteCarloCrude.o \
-./src/Monte_carlo.o 
+./src/MonteCarloIntegration.o 
 
 CPP_DEPS += \
 ./src/GenerateNumbers.d \
+./src/Histograma.d \
 ./src/MonteCarloCrude.d \
-./src/Monte_carlo.d 
+./src/MonteCarloIntegration.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

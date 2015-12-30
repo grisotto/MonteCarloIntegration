@@ -5,27 +5,33 @@
  *      Author: rafael
  */
 
+#include <map>
 #ifndef HISTOGRAMA_H_
 #define HISTOGRAMA_H_
 
 
 class Histograma
 {
-	std::map<int, int> hist;
+	private:
+	std::map<double, int> hist;
+
+
 
 public:
+
+	Histograma();
+	const std::map<double, int>& getHist() const;
+	void setHist(std::map<double, int>& hist);
+	void printing(std::pair<char,int> the_pair);
+
+	//get e sets gerados
+//	const std::map<double, int>& getHist() const {
+//		return hist;
+//	}
 //
-//	++hist[dist(mt)];
-//
-//	 for (auto p : hist) {
-//		           cout << p.first << " : " << string(p.second/100, '*') << '\n';
-//		       }
-
-	const std::map<int, int>& getHist() const;
-
-	void gerarHist();
-
-	void setHist(const std::map<int, int>& hist);
+//	void setHist(const std::map<double, int>& hist) {
+//		this->hist = hist;
+//	}
 };
 
 
