@@ -7,18 +7,21 @@ CPP_SRCS += \
 ../src/GenerateNumbers.cpp \
 ../src/Histograma.cpp \
 ../src/MonteCarloCrude.cpp \
+../src/MonteCarloCrudeN.cpp \
 ../src/MonteCarloIntegration.cpp 
 
 OBJS += \
 ./src/GenerateNumbers.o \
 ./src/Histograma.o \
 ./src/MonteCarloCrude.o \
+./src/MonteCarloCrudeN.o \
 ./src/MonteCarloIntegration.o 
 
 CPP_DEPS += \
 ./src/GenerateNumbers.d \
 ./src/Histograma.d \
 ./src/MonteCarloCrude.d \
+./src/MonteCarloCrudeN.d \
 ./src/MonteCarloIntegration.d 
 
 

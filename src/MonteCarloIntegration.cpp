@@ -42,6 +42,7 @@
 #include <string>
 #include <math.h>
 #include "MonteCarloCrude.h"
+#include "MonteCarloCrudeN.h"
 
 using namespace std;
 
@@ -55,25 +56,54 @@ using namespace std;
  * @return retorna a funcao
  */
 double funcao(double x);
+double funcaoN(double x[], int n);
 
+/**
+ * Voce define a funcao que deve ser integrada
+ * @param x Parametro de entrada da funcao
+ * @return
+ */
 double funcao(double x) {
 	double y;
-
+	/**
+	 * I = x dx
+	 * resultado analitico: "http://www.wolframalpha.com/input/?i=int+x+dx+from+0+to+10"
+	 */
 	y = x;
 
 	return y;
 }
 
+double funcaoN(double x[], int n){
+	 double y;
+	    int j;
+	    y = 0.0;
+// estou usando a funcao do Alex Godunov
+//	    for (j = 0; j < n; j = j+1)
+//	      {
+//	         y = y + x[j];
+//	      }
+//	    y = pow(y,2);
+
+	    /** resultado analitico
+	     * Wolfram: "http://www.wolframalpha.com/input/?i=int+x+%2B+y+%2B+z+dx+dy+dz%2C+x%3D0+to+1%2C+y%3D0+to+1%2C+z%3D0+to+1"
+	     */
+	    y = x[0] + x[1] + x[2];
+
+	    return y;
+
+
+}
+
 
 int main() {
-//	map<int, int> hist;
 
 	double a, b, montecarlo, erro;
 	int n;
 	int ntimes;
 
 	// definindo a precisao de quando mostra os resultados
-	cout.precision(6);
+	cout.precision(4);
 	cout.setf(ios::fixed | ios::showpoint);
 
 	/**
@@ -88,34 +118,52 @@ int main() {
 	a = 0.0;
 	b = 10.0;
 	n = 2;
-	ntimes = 6;
+	ntimes = 16;
+
  /** Usando método MonteCarloCrude
   *
   */
-	for (int var = 0; var < ntimes; ++var) {
+	for (int var = 0; var <= ntimes; ++var) {
 
 		montecarlo = MonteCarloCrude::CrudeMonteCarlo(funcao, a, b, n, erro);
 
 		cout <<"N: " << n << " Monte: "<< montecarlo << " Erro:"<< erro << endl;
 		n = n * 2;
 	}
+	const int n_int = 3;       /* define how many integrals */
+
+	    double aN[n] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}; /* left end-points */
+	    double bN[n] = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0}; /* right end-points */
+	    double result;
+	    int mN;
+
+
+	/**
+	 * Teste 2 - 6 dimensoes com CrudeMonteCarloN
+	 * I =
+	 * n_int = 6 numeros de integrais
+	 * aN = 0.0 para todas as dimensoes
+	 * bN = 1.0 para todas as dimensoes
+	 * mN = 2
+	 * ntimes = 20
+	 * m ^ntimes
+	 */
+
+mN = 2;
+ntimes = 20;
+
+for (int var = 0; var <= ntimes; ++var) {
+	       result = MonteCarloCrudeN::CrudeMonteCarloN(funcaoN, aN, bN, n_int, mN);
+	        cout << "mN: " << mN << " Resul: "<< result <<endl;
+	        mN = mN*2;
+
+}
+
+
 
 	return 0;
 }
 
-//****** Parte que print um historiograma para mostrar que consigo gerar uma distribuicao uniforme
-//	    for (int i = 0; i < 20000; ++i){
-//	    	//number = dist(mt);
-//	    	++hist[dist(mt)];
-//
-//	        //cout << number << " ";
-//
-//	    }
-//	    cout << endl;
-//
-//	    for (auto p : hist) {
-//	           cout << p.first << " : " << string(p.second/100, '*') << '\n';
-//	       }
 
 // Parte para gerar os aleatorios
 //	double number;

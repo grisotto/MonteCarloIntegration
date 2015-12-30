@@ -29,16 +29,10 @@ const std::map<double, int>& Histograma::getHist() const{
 	return hist;
 }
 
-void printing(std::pair<char,int> the_pair){
-	std::cout << the_pair.first << " " << the_pair.second << std::endl;
-}
+//void printing(std::pair<char,int> the_pair){
+//	std::cout << the_pair.first << " " << the_pair.second << std::endl;
+//}
 
-//
-//	++hist[dist(mt)];
-//
-//	 for (auto p : hist) {
-//		           cout << p.first << " : " << string(p.second/100, '*') << '\n';
-//		       }
 
 
 
