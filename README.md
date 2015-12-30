@@ -10,6 +10,5 @@ Inicialmente usaremos:
 Para o MonteCarlo testaremos com os métodos para 1 dimensão e n-dimensões:
 - Crude Integrals
 - Com Antithetic Variates
-- Improper Integrals
 - Stratified sampling
 - Importance sampling
