@@ -4,9 +4,12 @@
  *  Created on: Dec 29, 2015
  *      Author: rafael
  */
-
+#include <iostream>
 #include "MonteCarloCrude.h"
+ //Aqui incluo o metodo mt19937
 #include "GenerateNumbers.h"
+//aqui incluo o metodo do Numerical recipes
+#include "GenerateNumbersNR.h"
 #include "Histograma.h"
 
 /**
@@ -23,13 +26,17 @@ double MonteCarloCrude::CrudeMonteCarlo(double (*f)(double), double a, double b,
 	/* variables fs and f2s are used to estimate an error of integration */
 	double numeroU;
 	std::map<double, int> hist2;
+	 Ran myran(17);
 
+
+//	 std::cout <<"Rafaellllll: " << myran.doub()<< std::endl;
 
 	fs = 0.0;
 	f2s = 0.0;
 
 	for (int i = 1; i <= n; i = i + 1) {
-		numeroU = GenerateNumbers::getRandomNumber(0.0, 1.0);
+//		numeroU = GenerateNumbers::getRandomNumber(0.0, 1.0);
+		numeroU = myran.doub();
 		u = numeroU;
 		x = a + (b - a) * u; /**< Eq. 8.42. */
 		fs = fs + f(x);

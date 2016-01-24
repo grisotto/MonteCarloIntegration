@@ -14,7 +14,20 @@
 // AJUDOU SOBRE GERAR DOUBLE:
 //http://stackoverflow.com/questions/32071721/error-in-using-mt19937-with-random-device-as-static-class-members
 //http://physics.clarku.edu/courses/125/gtcdraft/chap11.pdf
+//http://stackoverflow.com/questions/24334012/best-way-to-seed-mt19937-64-for-monte-carlo-simulations
+//
 
+
+/*
+Artigos sobre geracao de aleatorios e monte carlo
+http://journals.aps.org/pre/abstract/10.1103/PhysRevE.75.066701
+ */
+/*
+Metodos para gerar aleatorios:
+usado pelo chrome - xorshift128+
+padrao do c++ 11 - mt19937 								XX - Implementado GenerateNumbers.h
+descrito pelo numerical recipes pg 366- Ran 			XX - Implementado GenerateNumbersNR.h
+ */
 
 
 /*
@@ -35,6 +48,10 @@
  */
 //============================================================================
 
+/*
+ * Adicionar novas formas de gerar numeros aleatorios
+ * implementar novos metodos de monte carlo, importance
+ */
 #include <iostream>
 #include <random>
 
@@ -78,6 +95,7 @@ double funcaoN(double x[], int n){
 	 double y;
 	    int j;
 	    y = 0.0;
+
 // estou usando a funcao do Alex Godunov
 //	    for (j = 0; j < n; j = j+1)
 //	      {

@@ -1,0 +1,42 @@
+//Testes
+Comparacao entre NR e Meiserwer
+
+Meiserwer
+N: 2 Monte: 83.1938 Erro:6.4312
+N: 4 Monte: 41.8094 Erro:17.4924
+N: 8 Monte: 46.5257 Erro:9.1664
+N: 16 Monte: 52.4824 Erro:6.1559
+N: 32 Monte: 52.0345 Erro:4.5272
+N: 64 Monte: 52.5413 Erro:3.7973
+N: 128 Monte: 49.7012 Erro:2.5867
+N: 256 Monte: 50.8008 Erro:1.9039
+N: 512 Monte: 49.0537 Erro:1.2669
+N: 1024 Monte: 50.2201 Erro:0.9004
+N: 2048 Monte: 50.5841 Erro:0.6463
+N: 4096 Monte: 49.5956 Erro:0.4479
+N: 8192 Monte: 50.2880 Erro:0.3189
+N: 16384 Monte: 49.3392 Erro:0.2241
+N: 32768 Monte: 50.4166 Erro:0.1594
+N: 65536 Monte: 49.9856 Erro:0.1125
+N: 131072 Monte: 50.0827 Erro:0.0798
+
+ Numerical recipies
+ N: 2 Monte: 55.4094 Erro:3.3468
+N: 4 Monte: 60.2247 Erro:16.5847
+N: 8 Monte: 56.6228 Erro:11.0070
+N: 16 Monte: 47.4581 Erro:7.2997
+N: 32 Monte: 42.1267 Erro:5.4322
+N: 64 Monte: 47.8637 Erro:3.5730
+N: 128 Monte: 45.6971 Erro:2.4346
+N: 256 Monte: 50.4325 Erro:1.7681
+N: 512 Monte: 50.3392 Erro:1.2741
+N: 1024 Monte: 50.1790 Erro:0.8875
+N: 2048 Monte: 50.4965 Erro:0.6305
+N: 4096 Monte: 49.2088 Erro:0.4574
+N: 8192 Monte: 50.2091 Erro:0.3166
+N: 16384 Monte: 50.2937 Erro:0.2246
+N: 32768 Monte: 50.0752 Erro:0.1590
+N: 65536 Monte: 50.0010 Erro:0.1124
+N: 131072 Monte: 49.9369 Erro:0.0799
+
+bem similar, devemos olhar a perfomarce depois
