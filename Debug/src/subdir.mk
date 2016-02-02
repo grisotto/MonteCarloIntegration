@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../src/GenerateNumbers.cpp \
+../src/GenerateNumbersXOR.cpp \
 ../src/Histograma.cpp \
 ../src/MonteCarloCrude.cpp \
 ../src/MonteCarloCrudeN.cpp \
@@ -12,6 +13,7 @@ CPP_SRCS += \
 
 OBJS += \
 ./src/GenerateNumbers.o \
+./src/GenerateNumbersXOR.o \
 ./src/Histograma.o \
 ./src/MonteCarloCrude.o \
 ./src/MonteCarloCrudeN.o \
@@ -19,6 +21,7 @@ OBJS += \
 
 CPP_DEPS += \
 ./src/GenerateNumbers.d \
+./src/GenerateNumbersXOR.d \
 ./src/Histograma.d \
 ./src/MonteCarloCrude.d \
 ./src/MonteCarloCrudeN.d \

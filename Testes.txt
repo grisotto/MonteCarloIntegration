@@ -39,4 +39,26 @@ N: 32768 Monte: 50.0752 Erro:0.1590
 N: 65536 Monte: 50.0010 Erro:0.1124
 N: 131072 Monte: 49.9369 Erro:0.0799
 
+
+Xor
+N: 2 Monte: 63.9755 Erro:11.2297
+N: 4 Monte: 54.9357 Erro:8.1086
+N: 8 Monte: 56.0205 Erro:10.4669
+N: 16 Monte: 50.0279 Erro:7.0746
+N: 32 Monte: 52.0903 Erro:4.6131
+N: 64 Monte: 45.9327 Erro:3.5456
+N: 128 Monte: 48.5070 Erro:2.6054
+N: 256 Monte: 49.2300 Erro:1.8169
+N: 512 Monte: 49.3272 Erro:1.2886
+N: 1024 Monte: 50.5295 Erro:0.9072
+N: 2048 Monte: 49.9653 Erro:0.6358
+N: 4096 Monte: 50.2292 Erro:0.4484
+N: 8192 Monte: 49.9853 Erro:0.3176
+N: 16384 Monte: 50.0591 Erro:0.2254
+N: 32768 Monte: 49.9258 Erro:0.1591
+N: 65536 Monte: 50.0637 Erro:0.1129
+N: 131072 Monte: 50.0101 Erro:0.0798
+
+
 bem similar, devemos olhar a perfomarce depois
+preciso incluir o tempo
