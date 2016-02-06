@@ -8,12 +8,12 @@
 #include "GenerateNumbersXOR.h"
 #include <limits>
 #include <random>
-std::random_device       m_rd;
+//std::random_device       m_rd;
 
 static const xorshift::state_type s_default_seed = {
 		//alterei para pegar o seed do device
-//    123456789, 362436069, 521288629, 88675123
-		m_rd(),m_rd(),m_rd(),m_rd()
+    123456789, 362436069, 521288629, 88675123
+//		m_rd(),m_rd(),m_rd(),m_rd()
 
 };
 

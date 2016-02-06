@@ -27,7 +27,7 @@ double MonteCarloCrude::CrudeMonteCarlo(double (*f)(double), double a, double b,
 	double r, x, u, f2s, fs;
 	/* variables fs and f2s are used to estimate an error of integration */
 	double numeroU;
-	std::map<double, int> hist2;
+//	std::map<double, int> hist2;
 	 Ran myran(17);
 
 	 std::uniform_real_distribution<> dist_normal(0.0, 1.0);

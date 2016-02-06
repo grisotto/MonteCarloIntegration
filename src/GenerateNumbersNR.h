@@ -29,7 +29,7 @@ struct Ran {
 	//eu uso o seed como random_device 
 	std::random_device       m_rd;
 	Ran(Ullong j) : v(4101842887655102017LL), w(1) {
-		j =  m_rd();
+//		j =  m_rd();
 		u = j ^ v; int64();
 		v = u; int64();
 		w = v; int64();

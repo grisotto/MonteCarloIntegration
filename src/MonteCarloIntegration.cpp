@@ -9,6 +9,7 @@
 // 2 - Sadiku. M.N.O - Numeral Techniques in Electromagnetics with MATLAB
 // 3 - http://ww2.odu.edu/~agodunov/computing/programs/cpp/dmc_int1.cpp
 // 4 - https://github.com/s9w/articles/blob/master/perf%20cpp%20random.md - comparacao entre os metodos de gerar numeros aleatorios
+//http://www.cs.dartmouth.edu/~wjarosz/publications/dissertation/appendixA.pdf
 
 
 // AJUDOU SOBRE GERAR DOUBLE:
@@ -24,7 +25,7 @@ http://journals.aps.org/pre/abstract/10.1103/PhysRevE.75.066701
  */
 /*
 Metodos para gerar aleatorios:
-usado pelo chrome - xorshift128+
+usado pelo chrome - xorshift128+						XX - Implementado GenerateNumbersXOR.h
 padrao do c++ 11 - mt19937 								XX - Implementado GenerateNumbers.h
 descrito pelo numerical recipes pg 366- Ran 			XX - Implementado GenerateNumbersNR.h
  */
@@ -60,6 +61,7 @@ descrito pelo numerical recipes pg 366- Ran 			XX - Implementado GenerateNumbers
 #include <math.h>
 #include "MonteCarloCrude.h"
 #include "MonteCarloCrudeN.h"
+#include <time.h>
 
 using namespace std;
 
@@ -90,12 +92,6 @@ double funcao(double x) {
 
 	return y;
 }
-
-double funcaoN(double x[], int n){
-	 double y;
-	    int j;
-	    y = 0.0;
-
 // estou usando a funcao do Alex Godunov
 //	    for (j = 0; j < n; j = j+1)
 //	      {
@@ -106,7 +102,24 @@ double funcaoN(double x[], int n){
 	    /** resultado analitico
 	     * Wolfram: "http://www.wolframalpha.com/input/?i=int+x+%2B+y+%2B+z+dx+dy+dz%2C+x%3D0+to+1%2C+y%3D0+to+1%2C+z%3D0+to+1"
 	     */
-	    y = x[0] + x[1] + x[2];
+
+
+double funcaoN(double x[], int n){
+	 double y;
+	    int j;
+	    double gama_0 = 2.3562;
+	    int a_0 = 5;
+	    double c_a = 9.1439;
+	    y = 0.0;
+
+
+//	    cout << "x1: "<< x[0] <<endl;
+//	    cout << "y1: "<< x[1] <<endl;
+//	    cout << "z1: "<< x[2] <<endl;
+
+
+
+	    y = pow(x[0],2) + pow(x[1],2) + pow(x[2],2);
 
 	    return y;
 
@@ -119,7 +132,7 @@ int main() {
 	double a, b, montecarlo, erro;
 	int n;
 	int ntimes;
-
+	clock_t tStart = clock();
 	// definindo a precisao de quando mostra os resultados
 	cout.precision(4);
 	cout.setf(ios::fixed | ios::showpoint);
@@ -141,17 +154,18 @@ int main() {
  /** Usando método MonteCarloCrude
   *
   */
-	for (int var = 0; var <= ntimes; ++var) {
+//	for (int var = 0; var <= ntimes; ++var) {
+//
+//		montecarlo = MonteCarloCrude::CrudeMonteCarlo(funcao, a, b, n, erro);
+//
+//		cout <<"N: " << n << " Monte: "<< montecarlo << " Erro:"<< erro << endl;
+//		n = n * 2;
+//	}
 
-		montecarlo = MonteCarloCrude::CrudeMonteCarlo(funcao, a, b, n, erro);
-
-		cout <<"N: " << n << " Monte: "<< montecarlo << " Erro:"<< erro << endl;
-		n = n * 2;
-	}
 	const int n_int = 3;       /* define how many integrals */
 
-	    double aN[n] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}; /* left end-points */
-	    double bN[n] = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0}; /* right end-points */
+	    double aN[n_int] = {0.0, 0.0, 0.0}; /* left end-points */
+	    double bN[n_int] = {1.0, 1.0, 1.0}; /* right end-points */
 	    double result;
 	    int mN;
 
@@ -168,38 +182,21 @@ int main() {
 	 */
 
 mN = 2;
-ntimes = 20;
+ntimes = 3;
+mN = pow(mN,ntimes);
+//for (int var = 0; var <= ntimes; ++var)
+for (int var = 0; var < 1; ++var) {
 
-for (int var = 0; var <= ntimes; ++var) {
 	       result = MonteCarloCrudeN::CrudeMonteCarloN(funcaoN, aN, bN, n_int, mN);
-	        cout << "mN: " << mN << " Resul: "<< result <<endl;
-	        mN = mN*2;
+	        cout << "mN: " << mN << " Resul: "<< result << endl;
+	      //  mN = mN*2;
 
 }
 
-
+	    cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << endl;
 
 	return 0;
 }
 
 
-// Parte para gerar os aleatorios
-//	double number;
-//	//pegando o seed de um dispositivo, assim toda vez que executar o codigo devera alterar o seed e assim a sequencia.?
-//	random_device seed_origem;
-//	mt19937_64 mt; //metodo para gerar os numeros aleatorios
-//	mt.seed(seed_origem()); //definindo o seed pelo device
-//
-//	//gerando uma distribuicao uniforme
-//	uniform_real_distribution<double> dist_double(0.0, 1.0);
-//
-//
-//	//cout << dist(mt()) << endl;
-//	number = dist_double(mt);
-//	return number;
-//
-//}
 
-//std::mt19937_64 prng;
-//seed = std::random_device{}();
-//prng.seed(seed);
