@@ -13,7 +13,7 @@
  * p. 342 / 343
  */
 //irei adicionar o seed conforme /dev/random
-#include <random>
+//#include <random>
 
 typedef int Int; // 32 bit integer
 typedef unsigned int Uint;
@@ -27,7 +27,7 @@ typedef long double Ldoub;
 struct Ran {
 	Ullong u,v,w;
 	//eu uso o seed como random_device 
-	std::random_device       m_rd;
+//	std::random_device       m_rd;
 	Ran(Ullong j) : v(4101842887655102017LL), w(1) {
 //		j =  m_rd();
 		u = j ^ v; int64();

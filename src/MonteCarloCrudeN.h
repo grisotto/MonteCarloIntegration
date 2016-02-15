@@ -13,7 +13,7 @@ class MonteCarloCrudeN
 {
 
 public:
-    static double CrudeMonteCarloN(double(*fn)(double[],int),double a[], double b[], int n, int m);
+    static double CrudeMonteCarloN(double(*fn)(double[],int,int,int,int) ,double a[], double b[], int n, int m,int limiteX, int limiteY, int limiteZ);
 
 };
 

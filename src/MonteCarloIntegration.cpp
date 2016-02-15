@@ -59,9 +59,10 @@ descrito pelo numerical recipes pg 366- Ran 			XX - Implementado GenerateNumbers
 
 #include <string>
 #include <math.h>
-#include "MonteCarloCrude.h"
+//#include "MonteCarloCrude.h"
 #include "MonteCarloCrudeN.h"
 #include <time.h>
+#include <array>
 
 using namespace std;
 
@@ -75,7 +76,7 @@ using namespace std;
  * @return retorna a funcao
  */
 double funcao(double x);
-double funcaoN(double x[], int n);
+double funcaoN(double x[], int n, int limiteX, int limiteY, int limiteZ);
 
 /**
  * Voce define a funcao que deve ser integrada
@@ -104,7 +105,7 @@ double funcao(double x) {
 	     */
 
 
-double funcaoN(double x[], int n){
+double funcaoN(double x[], int n, int limiteX, int limiteY, int limiteZ){
 	 double y;
 	    int j;
 	    double gama_0 = 2.3562;
@@ -112,16 +113,40 @@ double funcaoN(double x[], int n){
 	    double c_a = 9.1439;
 	    y = 0.0;
 
+	    double raizG_0 = sqrt( pow(limiteX,2) + pow(limiteY,2) + pow(limiteZ,2)  );
+	    if( raizG_0 == 0  ){
 
-//	    cout << "x1: "<< x[0] <<endl;
-//	    cout << "y1: "<< x[1] <<endl;
-//	    cout << "z1: "<< x[2] <<endl;
+	    	y = a_0;
+	    }else if(raizG_0 < 1){
+
+	    	y = a_0 * ((  sin(gama_0*raizG_0)) / (gama_0*raizG_0)) ;
+
+	    }else {
+
+	    	y = c_a * (( exp( -gama_0*raizG_0)) / ( gama_0*raizG_0)) ;
+	    }
+
+	    y = pow(y,2);
+
+	    double raiz_R =  sqrt( pow(x[0] - limiteX,2) + pow(x[1] - limiteY,2) + pow(x[2] - limiteZ,2)  );
+
+	    if(raiz_R >= 1 ){
+	    	y/= raiz_R;
+
+	    }else {
+	    	y/= 2 * 1;
+	    }
 
 
 
-	    y = pow(x[0],2) + pow(x[1],2) + pow(x[2],2);
+
+
+//	    y = 2*pow(x[0],2) + 3*pow(x[1],2) + 4*pow(x[2],2);
 
 	    return y;
+	    //	    cout << "x1: "<< x[0] <<endl;
+	    //	    cout << "y1: "<< x[1] <<endl;
+	    //	    cout << "z1: "<< x[2] <<endl;
 
 
 }
@@ -134,8 +159,11 @@ int main() {
 	int ntimes;
 	clock_t tStart = clock();
 	// definindo a precisao de quando mostra os resultados
-	cout.precision(4);
+	cout.precision(5);
 	cout.setf(ios::fixed | ios::showpoint);
+
+
+
 
 	/**
 	 * Teste 1- 1 dimensão com CrudeMonteCarlo
@@ -146,10 +174,10 @@ int main() {
 	 *  ntimes = 10
 	 */
 
-	a = 0.0;
-	b = 10.0;
-	n = 2;
-	ntimes = 16;
+//	a = 0.0;
+//	b = 10.0;
+//	n = 2;
+//	ntimes = 16;
 
  /** Usando método MonteCarloCrude
   *
@@ -164,8 +192,8 @@ int main() {
 
 	const int n_int = 3;       /* define how many integrals */
 
-	    double aN[n_int] = {0.0, 0.0, 0.0}; /* left end-points */
-	    double bN[n_int] = {1.0, 1.0, 1.0}; /* right end-points */
+	    double aN[n_int] = { -2.0, -2.0, -2.0}; /* left end-points */
+	    double bN[n_int] = { 2.0, 2.0, 2.0}; /* right end-points */
 	    double result;
 	    int mN;
 
@@ -183,15 +211,32 @@ int main() {
 
 mN = 2;
 ntimes = 3;
-mN = pow(mN,ntimes);
-//for (int var = 0; var <= ntimes; ++var)
-for (int var = 0; var < 1; ++var) {
 
-	       result = MonteCarloCrudeN::CrudeMonteCarloN(funcaoN, aN, bN, n_int, mN);
-	        cout << "mN: " << mN << " Resul: "<< result << endl;
-	      //  mN = mN*2;
+mN = 8;
 
+int limiteX, limiteY, limiteZ;
+int L = 8;
+double matrizMonte[L][L][L];
+for (limiteX = 0; limiteX < L; ++limiteX) {
+	for (limiteY = 0; limiteY < L; ++limiteY) {
+		for (limiteZ = 0; limiteZ < L; ++limiteZ) {
+
+		       result = MonteCarloCrudeN::CrudeMonteCarloN(funcaoN, aN, bN, n_int, mN,limiteX, limiteY,limiteZ);
+		        cout << "mN: " << mN << " Resul: "<< result << endl;
+		        cout << "x " << limiteX << " y "<< limiteY << " z " <<limiteZ << endl;
+
+		        matrizMonte[limiteX][limiteY][limiteZ] = result;
+
+
+
+		}
+	}
 }
+
+
+
+
+
 
 	    cout << "Time taken: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << endl;
 

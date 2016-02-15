@@ -15,7 +15,7 @@
 
 
 
-double MonteCarloCrudeN::CrudeMonteCarloN(double(*fn)(double[],int),double a[], double b[], int n, int m) {
+double MonteCarloCrudeN::CrudeMonteCarloN(double(*fn)(double[],int,int,int,int),double a[], double b[], int n, int m, int limiteX, int limiteY, int limiteZ) {
 	double numeroU;
 
 	double r, x[n], p;
@@ -43,9 +43,11 @@ double MonteCarloCrudeN::CrudeMonteCarloN(double(*fn)(double[],int),double a[], 
 	// step 2: integration
 	    for (i = 1; i <= m; i=i+1)
 	    {
+
 	//      calculate random x[] points
 	        for (j = 0; j < n; j = j+1)
 	        {
+
 	        	//numeroU = GenerateNumbers::getRandomNumber(0.0, 1.0);
 //	        	numeroU = dist_normal(xor_);
 	        	 	numeroU = myran.doub();
@@ -53,7 +55,7 @@ double MonteCarloCrudeN::CrudeMonteCarloN(double(*fn)(double[],int),double a[], 
 	        }
 
 //	        std::cout << m << std::endl;
-	        r = r + fn(x,n);
+	        r = r + fn( x, n, limiteX, limiteY, limiteZ);
 	    }
 	    r = r*p/m;
 
