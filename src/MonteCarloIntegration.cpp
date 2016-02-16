@@ -52,6 +52,9 @@ descrito pelo numerical recipes pg 366- Ran 			XX - Implementado GenerateNumbers
 /*
  * Adicionar novas formas de gerar numeros aleatorios
  * implementar novos metodos de monte carlo, importance
+ * compilar
+ * g++ -Wall -g -std=c++11 MonteCarloIntegration.cpp MonteCarloCrudeN.cpp GenerateNumbersNR.h -o MonteCarlo.o
+ *
  */
 #include <iostream>
 #include <random>
@@ -113,7 +116,8 @@ double funcaoN(double x[], int n, int limiteX, int limiteY, int limiteZ){
 	    double c_a = 9.1439;
 	    y = 0.0;
 
-	    double raizG_0 = sqrt( pow(limiteX,2) + pow(limiteY,2) + pow(limiteZ,2)  );
+
+	    double raizG_0 = sqrt( pow(x[0],2) + pow(x[1],2) + pow(x[2],2)  );
 	    if( raizG_0 == 0  ){
 
 	    	y = a_0;
@@ -126,9 +130,13 @@ double funcaoN(double x[], int n, int limiteX, int limiteY, int limiteZ){
 	    	y = c_a * (( exp( -gama_0*raizG_0)) / ( gama_0*raizG_0)) ;
 	    }
 
+
+
 	    y = pow(y,2);
 
-	    double raiz_R =  sqrt( pow(x[0] - limiteX,2) + pow(x[1] - limiteY,2) + pow(x[2] - limiteZ,2)  );
+
+
+	    double raiz_R =  sqrt( pow(limiteX - x[0],2) + pow(limiteY - x[1],2) + pow(limiteZ - x[2],2)  );
 
 	    if(raiz_R >= 1 ){
 	    	y/= raiz_R;
@@ -192,10 +200,11 @@ int main() {
 
 	const int n_int = 3;       /* define how many integrals */
 
-	    double aN[n_int] = { -2.0, -2.0, -2.0}; /* left end-points */
-	    double bN[n_int] = { 2.0, 2.0, 2.0}; /* right end-points */
+	    double aN[n_int] = { 0.0, 0.0, 0.0}; /* left end-points */
+	    double bN[n_int] = { 8.0, 8.0, 8.0}; /* right end-points */
 	    double result;
 	    int mN;
+
 
 
 	/**
@@ -209,10 +218,12 @@ int main() {
 	 * m ^ntimes
 	 */
 
+	    //trocar variaveis xe por x.
+
 mN = 2;
 ntimes = 3;
 
-mN = 8;
+mN = 100000;
 
 int limiteX, limiteY, limiteZ;
 int L = 8;
