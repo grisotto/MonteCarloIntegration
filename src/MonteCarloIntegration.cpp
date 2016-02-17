@@ -201,8 +201,8 @@ int main() {
 
 	const int n_int = 3;       /* define how many integrals */
 
-	    double aN[n_int] = { -4.0, -4.0, -4.0}; /* left end-points */
-	    double bN[n_int] = { 4.0, 4.0, 4.0}; /* right end-points */
+	    double aN[n_int] = { -10.0, -10.0, -10.0}; /* left end-points */
+	    double bN[n_int] = { 10.0, 10.0, 10.0}; /* right end-points */
 	    double result;
 	    int mN;
 
@@ -226,7 +226,7 @@ int main() {
 mN = 100000;
 
 int limiteX, limiteY, limiteZ;
-int L = 4;
+int L = 10;
 double matrizMonte[L*2+1][L*2+1][L*2+1];
 
 
