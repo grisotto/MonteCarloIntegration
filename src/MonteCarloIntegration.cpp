@@ -253,21 +253,22 @@ for (limiteX = -L, aux_x=0 ; limiteX <= L; ++limiteX, ++aux_x) {
 	}
 }
 
+//Pegando a hora atual e definindo no nome do arquivo
 time_t now;
 struct tm *now_tm;
-
-
 now = time(NULL);
 now_tm = localtime(&now);
 int hour = now_tm->tm_hour;
 int min = now_tm->tm_min;
+int sec = now_tm->tm_sec;
 
+//Criando um arquivo para coloca os dados da matriz X	Y 	Z 	Resultado
 ofstream myfile;
-string arquivoNome = "matriz " + to_string(hour)+ ":" + to_string(min) + ".txt";
+string arquivoNome = "matriz " + to_string(hour)+ ":" + to_string(min) + ":" + to_string(sec) + ".txt";
 myfile.open (arquivoNome);
 myfile << "X\t" << "Y\t" << "Z\t"<< "Resultado\t" << endl;
 
-cout << "aquiaa" << endl;
+
 aux_x = 0;
 aux_y = 0;
 aux_z = 0;
