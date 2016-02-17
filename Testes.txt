@@ -1,3 +1,33 @@
+//ofstream myfile;
+//string arquivoNome = "matriz " + to_string((time (0)/60/60)) + to_string(time (0)/60) + ".txt";
+//myfile.open (arquivoNome);
+//myfile << "X\t" << "Y\t" << "Z\t"<< "Resultado\t" << endl;
+//
+//
+//
+//
+//for (limiteX = -L ; limiteX <= L; ++limiteX, ++aux_x) {
+//	for (limiteY = -L ; limiteY <= L; ++limiteY, ++aux_y) {
+//		for (limiteZ = -L ; limiteZ <= L; ++limiteZ, ++aux_z) {
+//
+//			//escrevendo no arquivo
+//			myfile << limiteX <<"\t"<< limiteY << "\t" << limiteZ << "\t" << result << "\t" << endl;
+//
+//
+//		}
+//	}
+//
+//}
+
+
+
+
+
+
+
+
+
+
 //Testes
 Comparacao entre NR e Meiserwer
 

@@ -66,6 +66,7 @@ descrito pelo numerical recipes pg 366- Ran 			XX - Implementado GenerateNumbers
 #include "MonteCarloCrudeN.h"
 #include <time.h>
 #include <array>
+#include <fstream>
 
 using namespace std;
 
@@ -200,8 +201,8 @@ int main() {
 
 	const int n_int = 3;       /* define how many integrals */
 
-	    double aN[n_int] = { 0.0, 0.0, 0.0}; /* left end-points */
-	    double bN[n_int] = { 8.0, 8.0, 8.0}; /* right end-points */
+	    double aN[n_int] = { -4.0, -4.0, -4.0}; /* left end-points */
+	    double bN[n_int] = { 4.0, 4.0, 4.0}; /* right end-points */
 	    double result;
 	    int mN;
 
@@ -220,23 +221,31 @@ int main() {
 
 	    //trocar variaveis xe por x.
 
-mN = 2;
-ntimes = 3;
+
 
 mN = 100000;
 
 int limiteX, limiteY, limiteZ;
-int L = 8;
-double matrizMonte[L][L][L];
-for (limiteX = 0; limiteX < L; ++limiteX) {
-	for (limiteY = 0; limiteY < L; ++limiteY) {
-		for (limiteZ = 0; limiteZ < L; ++limiteZ) {
+int L = 4;
+double matrizMonte[L*2+1][L*2+1][L*2+1];
+
+
+
+int aux_x, aux_y, aux_z;
+aux_x = 0;
+aux_y = 0;
+aux_z = 0;
+
+for (limiteX = -L, aux_x=0 ; limiteX <= L; ++limiteX, ++aux_x) {
+	for (limiteY = -L, aux_y=0 ; limiteY <= L; ++limiteY, ++aux_y) {
+		for (limiteZ = -L, aux_z=0 ; limiteZ <= L; ++limiteZ, ++aux_z) {
 
 		       result = MonteCarloCrudeN::CrudeMonteCarloN(funcaoN, aN, bN, n_int, mN,limiteX, limiteY,limiteZ);
 		        cout << "mN: " << mN << " Resul: "<< result << endl;
 		        cout << "x " << limiteX << " y "<< limiteY << " z " <<limiteZ << endl;
+		        cout << "a_x " << aux_x << " a_y "<< aux_y << " a_z " <<aux_z << endl;
 
-		        matrizMonte[limiteX][limiteY][limiteZ] = result;
+		       matrizMonte[aux_x][aux_y][aux_z] = result;
 
 
 
@@ -244,7 +253,38 @@ for (limiteX = 0; limiteX < L; ++limiteX) {
 	}
 }
 
+time_t now;
+struct tm *now_tm;
 
+
+now = time(NULL);
+now_tm = localtime(&now);
+int hour = now_tm->tm_hour;
+int min = now_tm->tm_min;
+
+ofstream myfile;
+string arquivoNome = "matriz " + to_string(hour)+ ":" + to_string(min) + ".txt";
+myfile.open (arquivoNome);
+myfile << "X\t" << "Y\t" << "Z\t"<< "Resultado\t" << endl;
+
+cout << "aquiaa" << endl;
+aux_x = 0;
+aux_y = 0;
+aux_z = 0;
+
+
+for (limiteX = -L, aux_x=0 ; limiteX <= L; ++limiteX, ++aux_x) {
+	for (limiteY = -L, aux_y=0 ; limiteY <= L; ++limiteY, ++aux_y) {
+		for (limiteZ = -L, aux_z=0 ; limiteZ <= L; ++limiteZ, ++aux_z) {
+
+			//escrevendo no arquivo
+			myfile << limiteX <<"\t"<< limiteY << "\t" << limiteZ << "\t" << matrizMonte[aux_x][aux_y][aux_z]  << "\t" << endl;
+
+
+		}
+	}
+
+}
 
 
 
