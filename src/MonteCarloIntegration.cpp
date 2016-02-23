@@ -111,7 +111,7 @@ double funcao(double x) {
 
 double funcaoN(double x[], int n, int limiteX, int limiteY, int limiteZ){
 	 double y;
-	    int j;
+	 //   int j;
 	    double gama_0 = 2.3562;
 	    int a_0 = 5;
 	    double c_a = 9.1439;
@@ -163,9 +163,9 @@ double funcaoN(double x[], int n, int limiteX, int limiteY, int limiteZ){
 
 int main() {
 
-	double a, b, montecarlo, erro;
-	int n;
-	int ntimes;
+//	double a, b, montecarlo, erro;
+//	int n;
+//	int ntimes;
 	clock_t tStart = clock();
 	// definindo a precisao de quando mostra os resultados
 	cout.precision(5);
@@ -241,9 +241,9 @@ for (limiteX = -L, aux_x=0 ; limiteX <= L; ++limiteX, ++aux_x) {
 		for (limiteZ = -L, aux_z=0 ; limiteZ <= L; ++limiteZ, ++aux_z) {
 
 		       result = MonteCarloCrudeN::CrudeMonteCarloN(funcaoN, aN, bN, n_int, mN,limiteX, limiteY,limiteZ);
-		        cout << "mN: " << mN << " Resul: "<< result << endl;
-		        cout << "x " << limiteX << " y "<< limiteY << " z " <<limiteZ << endl;
-		        cout << "a_x " << aux_x << " a_y "<< aux_y << " a_z " <<aux_z << endl;
+		      //  cout << "mN: " << mN << " Resul: "<< result << endl;
+		        cout << "x " << limiteX << " y "<< limiteY << " z " <<limiteZ << " Resul "<< result << endl;
+		     //   cout << "a_x " << aux_x << " a_y "<< aux_y << " a_z " <<aux_z << endl;
 
 		       matrizMonte[aux_x][aux_y][aux_z] = result;
 
@@ -266,7 +266,7 @@ int sec = now_tm->tm_sec;
 ofstream myfile;
 string arquivoNome = "matriz " + to_string(hour)+ ":" + to_string(min) + ":" + to_string(sec) + ".txt";
 myfile.open (arquivoNome);
-myfile << "X\t" << "Y\t" << "Z\t"<< "Resultado\t" << endl;
+myfile << "X,\t" << "Y,\t" << "Z,\t"<< "Resultado\t" << endl;
 
 
 aux_x = 0;
@@ -279,7 +279,7 @@ for (limiteX = -L, aux_x=0 ; limiteX <= L; ++limiteX, ++aux_x) {
 		for (limiteZ = -L, aux_z=0 ; limiteZ <= L; ++limiteZ, ++aux_z) {
 
 			//escrevendo no arquivo
-			myfile << limiteX <<"\t"<< limiteY << "\t" << limiteZ << "\t" << matrizMonte[aux_x][aux_y][aux_z]  << "\t" << endl;
+			myfile << limiteX <<",\t"<< limiteY << ",\t" << limiteZ << ",\t" << matrizMonte[aux_x][aux_y][aux_z]  << "\t" << endl;
 
 
 		}
