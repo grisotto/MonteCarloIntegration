@@ -80,7 +80,7 @@ using namespace std;
  * @return retorna a funcao
  */
 double funcao(double x);
-double funcaoN(double x[], int n, double limiteX, double limiteY, double limiteZ, double step);
+double funcaoN(double x[], int n, int limiteX, int limiteY, int limiteZ);
 
 /**
  * Voce define a funcao que deve ser integrada
@@ -110,7 +110,7 @@ double funcao(double x) {
 
 
 
-double funcaoN(double x[], int n, double limiteX, double limiteY, double limiteZ, double step) {
+double funcaoN(double x[], int n, int limiteX, int limiteY, int limiteZ){
 	 double y;
 	 //   int j;
 	    double gama_0 = 2.3562;
@@ -127,7 +127,7 @@ double funcaoN(double x[], int n, double limiteX, double limiteY, double limiteZ
 
 	    	y = a_0 * ((  sin(gama_0*raizG_0)) / (gama_0*raizG_0)) ;
 
-	    } else {
+	    }else {
 
 	    	y = c_a * (( exp( -gama_0*raizG_0)) / ( gama_0*raizG_0)) ;
 	    }
@@ -140,11 +140,11 @@ double funcaoN(double x[], int n, double limiteX, double limiteY, double limiteZ
 
 	    double raiz_R =  sqrt( pow(limiteX - x[0],2) + pow(limiteY - x[1],2) + pow(limiteZ - x[2],2)  );
 
-	    if(raiz_R >= step ){
+	    if(raiz_R >= 1 ){
 	    	y/= raiz_R;
 
-	    } else {
-	    	y/= 2 * step;
+	    }else {
+	    	y/= 2 * 1;
 	    }
 
 
@@ -156,7 +156,7 @@ double funcaoN(double x[], int n, double limiteX, double limiteY, double limiteZ
 
 //	    y = 2*pow(x[0],2) + 3*pow(x[1],2) + 4*pow(x[2],2);
 
-	    return y;
+	    return limiteX * x[0] * x[1] * x[2];
 	    //	    cout << "x1: "<< x[0] <<endl;
 	    //	    cout << "y1: "<< x[1] <<endl;
 	    //	    cout << "z1: "<< x[2] <<endl;
@@ -204,20 +204,36 @@ int main() {
 //	}
 
 	const int n_int = 3;       /* define how many integrals */
-	int L = 2;
-	    double aN[n_int] = { -L, -L, -L}; /* left end-points */
-	
-	    double bN[n_int] = { L, L, L}; /* right end-points */
+
+	    double aN[n_int] = { 0.0, 0.0, 0.0}; /* left end-points */
+	    double bN[n_int] = { 1.0, 1.0, 1.0}; /* right end-points */
 	    double result;
 	    int mN;
 
 
 
+	/**
+	 * Teste 2 - 6 dimensoes com CrudeMonteCarloN
+	 * I =
+	 * n_int = 6 numeros de integrais
+	 * aN = 0.0 para todas as dimensoes
+	 * bN = 1.0 para todas as dimensoes
+	 * mN = 2
+	 * ntimes = 20
+	 * m ^ntimes
+	 */
 
-mN = 100000; // numero de iteracoes
+	    //trocar variaveis xe por x.
 
-double limiteX, limiteY, limiteZ;
 
+
+mN = 1000000;
+
+int limiteX, limiteY, limiteZ;
+limiteX = 0;
+limiteY = 0;
+limiteZ = 0;
+int L = 10;
 double matrizMonte[L*2+1][L*2+1][L*2+1];
 
 
@@ -226,27 +242,41 @@ int aux_x, aux_y, aux_z;
 aux_x = 0;
 aux_y = 0;
 aux_z = 0;
-double step=1;
+
+int A=50;
 
 
+for (int i = 1; i <= A; ++i)
+{
 
 
-for (limiteX = -L, aux_x=0 ; limiteX <= L; limiteX+= step, ++aux_x) {
-	for (limiteY = -L, aux_y=0 ; limiteY <= L; limiteY+= step, ++aux_y) {
-		for (limiteZ = -L, aux_z=0 ; limiteZ <= L; limiteZ+= step, ++aux_z) {
+	/* code */
+	    result = MonteCarloCrudeN::CrudeMonteCarloN(funcaoN, aN, bN, n_int, mN, i, limiteY,limiteZ);
+// 		      //  cout << "mN: " << mN << " Resul: "<< result << endl;
+ 		        cout << "A " << i << " Resul "<< result << endl;
+// 		     //   cout << "a_x " << aux_x << " a_y "<< aux_y << " a_z " <<aux_z << endl;
 
-		       result = MonteCarloCrudeN::CrudeMonteCarloN(funcaoN, aN, bN, n_int, mN,limiteX, limiteY,limiteZ);
-		      //  cout << "mN: " << mN << " Resul: "<< result << endl;
-		        cout << "x " << limiteX << " y "<< limiteY << " z " <<limiteZ << " Resul "<< result << endl;
-		     //   cout << "a_x " << aux_x << " a_y "<< aux_y << " a_z " <<aux_z << endl;
+	     
 
-		       matrizMonte[aux_x][aux_y][aux_z] = result;
-
-
-
-		}
-	}
 }
+
+
+// for (limiteX = -L, aux_x=0 ; limiteX <= L; ++limiteX, ++aux_x) {
+// 	for (limiteY = -L, aux_y=0 ; limiteY <= L; ++limiteY, ++aux_y) {
+// 		for (limiteZ = -L, aux_z=0 ; limiteZ <= L; ++limiteZ, ++aux_z) {
+
+// 		       result = MonteCarloCrudeN::CrudeMonteCarloN(funcaoN, aN, bN, n_int, mN,limiteX, limiteY,limiteZ);
+// 		      //  cout << "mN: " << mN << " Resul: "<< result << endl;
+// 		        cout << "x " << limiteX << " y "<< limiteY << " z " <<limiteZ << " Resul "<< result << endl;
+// 		     //   cout << "a_x " << aux_x << " a_y "<< aux_y << " a_z " <<aux_z << endl;
+
+// 		       matrizMonte[aux_x][aux_y][aux_z] = result;
+
+
+
+// 		}
+// 	}
+// }
 
 //Pegando a hora atual e definindo no nome do arquivo
 time_t now;
