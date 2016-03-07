@@ -67,6 +67,10 @@ descrito pelo numerical recipes pg 366- Ran 			XX - Implementado GenerateNumbers
 #include <time.h>
 #include <array>
 #include <fstream>
+#include <limits>
+#include <iomanip>
+#include <type_traits>
+#include <algorithm>
 
 using namespace std;
 
@@ -97,6 +101,19 @@ double funcao(double x) {
 
 	return y;
 }
+
+template<class T>
+typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
+    almost_equal(T x, T y, int ulp)
+{
+    // the machine epsilon has to be scaled to the magnitude of the values used
+    // and multiplied by the desired precision in ULPs (units in the last place)
+    return std::abs(x-y) < std::numeric_limits<T>::epsilon() * std::abs(x+y) * ulp
+    // unless the result is subnormal
+           || std::abs(x-y) < std::numeric_limits<T>::min();
+}
+
+
 // estou usando a funcao do Alex Godunov
 //	    for (j = 0; j < n; j = j+1)
 //	      {
@@ -140,6 +157,8 @@ double funcaoN(double x[], int n, double limiteX, double limiteY, double limiteZ
 
 	    double raiz_R =  sqrt( pow(limiteX - x[0],2) + pow(limiteY - x[1],2) + pow(limiteZ - x[2],2)  );
 
+
+
 	    if(raiz_R >= step ){
 	    	y/= raiz_R;
 
@@ -167,34 +186,22 @@ double funcaoN(double x[], int n, double limiteX, double limiteY, double limiteZ
 
 int main() {
 
-//	double a, b, montecarlo, erro;
-//	int n;
-//	int ntimes;
+
 	clock_t tStart = clock();
 	// definindo a precisao de quando mostra os resultados
 	cout.precision(5);
 	cout.setf(ios::fixed | ios::showpoint);
 
 
+/** MonteCarlo 1 dimensao
 
-
-	/**
-	 * Teste 1- 1 dimensão com CrudeMonteCarlo
-	 *  I = x dx
-	 *  a = 0.0
-	 *  b = 10.0
-	 *  n = 2
-	 *  ntimes = 10
-	 */
-
+	//	double a, b, montecarlo, erro;
+	//	int n;
+	//	int ntimes;
 //	a = 0.0;
 //	b = 10.0;
 //	n = 2;
 //	ntimes = 16;
-
- /** Usando método MonteCarloCrude
-  *
-  */
 //	for (int var = 0; var <= ntimes; ++var) {
 //
 //		montecarlo = MonteCarloCrude::CrudeMonteCarlo(funcao, a, b, n, erro);
@@ -203,30 +210,36 @@ int main() {
 //		n = n * 2;
 //	}
 
-	const int n_int = 3;       /* define how many integrals */
-	int L = 2;
-	    double aN[n_int] = { -L, -L, -L}; /* left end-points */
 	
-	    double bN[n_int] = { L, L, L}; /* right end-points */
-	    double result;
-	    int mN;
 
 
+/** MonteCarlo n dimensoes
+ * Parametros:
+ * numeroIntegrais - quantidade de integrais, ex: dx, dy, dz...
+ * L - Limite superior e inferior do somatorio da integral e limite do x,y,z das variaveis internas
+ * limiteInferior - valor para o limite inferior do somatorio da integral
+ * limiteSuperior - valor para o limite supeior do somatorio da integral
+ * numeroInteracoes -  numero de chamadas para o montecarlo, quanto maior melhor, porem quanto maior maior tempo
+ * step -  o passo de cada interacao
+ * resultado -  valor retornado pelo metodo de montecarlo
+ */
+		const int numeroIntegrais = 3;
+		int L = 2;
+	    double limiteInferior[numeroIntegrais] = { -L, -L, -L};
+	    double limiteSuperior[numeroIntegrais] = { L, L, L};
+	    int numeroInteracoes = 100000;
+	    double step=0.5;
 
 
-mN = 100000; // numero de iteracoes
+	    double limiteX, limiteY, limiteZ;
+	    double matrizMonte[int((L/0.25)+1)][int((L/0.25)+1)][int((L/0.25)+1)];
+	    double resultado;
+	    int aux_x, aux_y, aux_z;
 
-double limiteX, limiteY, limiteZ;
-
-double matrizMonte[L*2+1][L*2+1][L*2+1];
-
-
-
-int aux_x, aux_y, aux_z;
 aux_x = 0;
 aux_y = 0;
 aux_z = 0;
-double step=1;
+
 
 
 
@@ -235,18 +248,19 @@ for (limiteX = -L, aux_x=0 ; limiteX <= L; limiteX+= step, ++aux_x) {
 	for (limiteY = -L, aux_y=0 ; limiteY <= L; limiteY+= step, ++aux_y) {
 		for (limiteZ = -L, aux_z=0 ; limiteZ <= L; limiteZ+= step, ++aux_z) {
 
-		       result = MonteCarloCrudeN::CrudeMonteCarloN(funcaoN, aN, bN, n_int, mN,limiteX, limiteY,limiteZ);
+			resultado = MonteCarloCrudeN::CrudeMonteCarloN(funcaoN, limiteInferior, limiteSuperior, numeroIntegrais, numeroInteracoes,limiteX, limiteY,limiteZ,step);
 		      //  cout << "mN: " << mN << " Resul: "<< result << endl;
-		        cout << "x " << limiteX << " y "<< limiteY << " z " <<limiteZ << " Resul "<< result << endl;
+		        cout << "x " << limiteX << " y "<< limiteY << " z " <<limiteZ << " Resul "<< resultado << endl;
 		     //   cout << "a_x " << aux_x << " a_y "<< aux_y << " a_z " <<aux_z << endl;
 
-		       matrizMonte[aux_x][aux_y][aux_z] = result;
+		       matrizMonte[aux_x][aux_y][aux_z] = resultado;
 
 
 
 		}
 	}
 }
+
 
 //Pegando a hora atual e definindo no nome do arquivo
 time_t now;
@@ -264,14 +278,17 @@ myfile.open (arquivoNome);
 myfile << "X,\t" << "Y,\t" << "Z,\t"<< "Resultado\t" << endl;
 
 
+
+
+// escrevendo resultado no arquivo
 aux_x = 0;
 aux_y = 0;
 aux_z = 0;
 
 
-for (limiteX = -L, aux_x=0 ; limiteX <= L; ++limiteX, ++aux_x) {
-	for (limiteY = -L, aux_y=0 ; limiteY <= L; ++limiteY, ++aux_y) {
-		for (limiteZ = -L, aux_z=0 ; limiteZ <= L; ++limiteZ, ++aux_z) {
+for (limiteX = -L, aux_x=0 ; limiteX <= L; limiteX+= step, ++aux_x) {
+	for (limiteY = -L, aux_y=0 ; limiteY <= L; limiteY+= step, ++aux_y) {
+		for (limiteZ = -L, aux_z=0 ; limiteZ <= L; limiteZ+= step, ++aux_z) {
 
 			//escrevendo no arquivo
 			myfile << limiteX <<",\t"<< limiteY << ",\t" << limiteZ << ",\t" << matrizMonte[aux_x][aux_y][aux_z]  << "\t" << endl;

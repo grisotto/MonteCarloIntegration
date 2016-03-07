@@ -15,7 +15,7 @@
 
 
 
-double MonteCarloCrudeN::CrudeMonteCarloN(double(*fn)(double[],double,double,double,double,double),double a[], double b[], int n, int m, double limiteX, double limiteY, double limiteZ, double step) {
+double MonteCarloCrudeN::CrudeMonteCarloN(double(*fn)(double[],int,double,double,double,double),double a[], double b[], int n, int m, double limiteX, double limiteY, double limiteZ, double step) {
 	double numeroU;
 
 	double r, x[n], p;

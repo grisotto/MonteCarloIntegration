@@ -11,6 +11,11 @@ CPP_SRCS += \
 ../src/MonteCarloCrudeN.cpp \
 ../src/MonteCarloIntegration.cpp 
 
+O_SRCS += \
+../src/MonteCarlo.o \
+../src/MonteCarlo2.o \
+../src/MontePaulo.o 
+
 OBJS += \
 ./src/GenerateNumbers.o \
 ./src/GenerateNumbersXOR.o \
