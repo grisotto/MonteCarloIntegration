@@ -38,19 +38,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: MonteCarloIntegration3
+all: MonteCarlo
 
 # Tool invocations
-MonteCarloIntegration3: $(OBJS) $(USER_OBJS)
+MonteCarlo: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++  -o "MonteCarloIntegration3" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++  -o "MonteCarlo" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(C_UPPER_DEPS)$(CXX_DEPS)$(OBJS)$(CPP_DEPS)$(C_DEPS) MonteCarloIntegration3
+	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(C_UPPER_DEPS)$(CXX_DEPS)$(OBJS)$(CPP_DEPS)$(C_DEPS) MonteCarlo
 	-@echo ' '
 
 .PHONY: all clean dependents

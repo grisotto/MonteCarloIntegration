@@ -101,7 +101,7 @@ double funcao(double x) {
 
 	return y;
 }
-
+// classe para comprar numeros de ponto flutuante 
 template<class T>
 typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
     almost_equal(T x, T y, int ulp)
@@ -111,6 +111,7 @@ typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
     return std::abs(x-y) < std::numeric_limits<T>::epsilon() * std::abs(x+y) * ulp
     // unless the result is subnormal
            || std::abs(x-y) < std::numeric_limits<T>::min();
+
 }
 
 
@@ -129,7 +130,8 @@ typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
 
 double funcaoN(double x[], int n, double limiteX, double limiteY, double limiteZ, double step) {
 	 double y;
-	 //   int j;
+	  /* Funcao antiga
+	    //   int j;
 	    double gama_0 = 2.3562;
 	    int a_0 = 5;
 	    double c_a = 9.1439;
@@ -165,6 +167,7 @@ double funcaoN(double x[], int n, double limiteX, double limiteY, double limiteZ
 	    } else {
 	    	y/= 2 * step;
 	    }
+	    /*
 
 
 
@@ -175,13 +178,51 @@ double funcaoN(double x[], int n, double limiteX, double limiteY, double limiteZ
 
 //	    y = 2*pow(x[0],2) + 3*pow(x[1],2) + 4*pow(x[2],2);
 
+	 //Valores Calculados para energia e constantes de normalização
+	 double e_l0, e_l1, e_l2;
+	 double gama1_l0, gama1_l1, gama1_l2, gama2_l0, gama2_l1, gama2_l2;
+	 int czao_l0, czao_l1, czao_l2;
+	 float azao_l0, azao_l1, azao_l2;
+
+
+	 e_l0 = 53.7;
+	 e_l1 = 198.5;
+	 e_l2 = 289.8;
+
+	 gama1_l0 = 2.1973;
+	 gama1_l1 = 4.2248;
+	 gama1_l2 = 5.1045;
+
+	 gama2_l0 = 5.5800;
+	 gama2_l1 = 4.2562;
+	 gama2_l2 = 3.1477;
+
+	 czao_l0 = 3;
+	 czao_l1 = 6;
+	 czao_l2 = 7;
+
+	 azao_l0 = 281779;
+	 azao_l1 = 5.9432;
+	 azao_l2 = 7.2102;
+
+
+
+
+
+
+
+
+
 	    return y;
+
 	    //	    cout << "x1: "<< x[0] <<endl;
 	    //	    cout << "y1: "<< x[1] <<endl;
 	    //	    cout << "z1: "<< x[2] <<endl;
 
 
 }
+
+
 
 
 int main() {
@@ -224,7 +265,7 @@ int main() {
  * resultado -  valor retornado pelo metodo de montecarlo
  */
 		const int numeroIntegrais = 3;
-		int L = 2;
+		int L = 1;
 	    double limiteInferior[numeroIntegrais] = { -L, -L, -L};
 	    double limiteSuperior[numeroIntegrais] = { L, L, L};
 	    int numeroInteracoes = 100000;
