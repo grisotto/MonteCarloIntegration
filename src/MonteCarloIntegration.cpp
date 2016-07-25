@@ -184,6 +184,8 @@ double funcaoN(double x[], int n, double limiteX, double limiteY, double limiteZ
 	 int czao_l0, czao_l1, czao_l2;
 	 float azao_l0, azao_l1, azao_l2;
 
+	 float V0;
+	 double Y2;
 
 	 e_l0 = 53.7;
 	 e_l1 = 198.5;
@@ -205,6 +207,20 @@ double funcaoN(double x[], int n, double limiteX, double limiteY, double limiteZ
 	 azao_l1 = 5.9432;
 	 azao_l2 = 7.2102;
 
+	 // valor calculado para o V0
+	 V0 = -0.3697;
+
+
+	 //definicao do Y2
+	 Y2 = (15 / (8 * M_PI) ) * ((pow(x[0],2) + pow(x[1],2)) * pow(x[2],2) ) / ( pow(pow(x[0],2) + pow(x[1],2) + pow(x[2],2), 2 )  );
+
+	 double R_Rc = sqrt( 		(pow(limiteX - x[0], 2) + 		pow(limiteY - x[1],2) +  			pow(limiteZ - x[2],2) ));
+
+	 if( R_Rc < step){
+
+		 R_Rc = 2 * step;
+
+	 }
 
 
 
